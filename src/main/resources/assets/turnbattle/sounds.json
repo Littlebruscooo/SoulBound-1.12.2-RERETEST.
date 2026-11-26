@@ -1,0 +1,7 @@
+{
+  "battle_start": {"sounds": ["turnbattle:battle_start"]},
+  "slash": {"sounds": ["turnbattle:slash"]},
+  "snd_criticalswing": {"sounds": ["turnbattle:snd_criticalswing"]},
+  "snd_damage": {"sounds": ["turnbattle:snd_damage"]},
+  "defeatsfx": {"sounds": ["turnbattle:defeatsfx"]}
+}
