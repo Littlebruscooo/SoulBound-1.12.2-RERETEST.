@@ -1,4 +1,36 @@
-        int fill = (int) (tpH * (tp / 100f));
+package com.soulbound.deltarune.client;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
+
+public class BattleRenderHelper extends Gui {
+    private static final ResourceLocation COL = new ResourceLocation("turnbattle", "textures/gui/playercolumn.png");
+    private static final ResourceLocation TP0 = new ResourceLocation("turnbattle", "textures/gui/tp_bar.png");
+    private static final ResourceLocation TP1 = new ResourceLocation("turnbattle", "textures/gui/tp_bar_prog.png");
+
+    public static ResourceLocation getBtnTex(int i, boolean sel) {
+        if (i == 0) return new ResourceLocation("turnbattle", sel ? "textures/gui/bashsel.png" : "textures/gui/bash.png");
+        if (i == 1) return new ResourceLocation("turnbattle", sel ? "textures/gui/skillsel.png" : "textures/gui/skills.png");
+        if (i == 2) return new ResourceLocation("turnbattle", sel ? "textures/gui/goodssel.png" : "textures/gui/goods.png");
+        if (i == 3) return new ResourceLocation("turnbattle", sel ? "textures/gui/mercysel.png" : "textures/gui/mercy.png");
+        return new ResourceLocation("turnbattle", sel ? "textures/gui/defendsel.png" : "textures/gui/defend.png");
+    }
+
+    public void drawStage(Minecraft mc, int w, int dockTop, float gridOff, int tp, int mercy, int pose, int poseTicks, int lastDmg, boolean crit, EntityLivingBase enemy) {
+        drawRect(0, 0, w, dockTop + 90, 0xFF000000);
+        int off = (int) gridOff;
+        for (int x = -28 + off; x < w; x += 28) drawRect(x, 0, x + 1, dockTop, 0xFF2A123D);
+        for (int y = -28 + off; y < dockTop; y += 28) drawRect(0, y, w, y + 1, 0xFF2A123D);
+        int tpH = dockTop - 52;
+        GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.enableBlend();
+        mc.getTextureManager().bindTexture(TP0);
+        drawModalRectWithCustomSizedTexture(14, 28, 0, 0, 16, tpH, 16, tpH);
+int fill = (int) (tpH * (tp / 100f));
         if (fill > 0) {
             mc.getTextureManager().bindTexture(TP1);
             drawModalRectWithCustomSizedTexture(14, 28 + tpH - fill, 0, 0, 16, fill, 16, tpH);
